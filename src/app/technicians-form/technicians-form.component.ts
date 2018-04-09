@@ -17,6 +17,9 @@ export class TechniciansFormComponent{
   id;
   techId;
 
+  //list of system role
+  sysRole$;
+
   constructor(
     private db: AngularFireDatabase,
     private techniciansService: TechniciansService,
@@ -30,19 +33,24 @@ export class TechniciansFormComponent{
 
       this.techId=this.af.auth.currentUser.uid;
       
+      //getting sysrole
+      this.sysRole$=this.techniciansService.getSysRole();
     }
 
    
-
-  save(technicians){
-    //updates the product
-    if 
-    (this.techId.uid) this.techniciansService.update( 
-      this.techId, technicians
-    );
-    else 
+  //create a new technician
+  create(technicians){
+      console.log('create' + this.techId);
     this.techniciansService.create(this.techId,technicians);
     this.router.navigate(['/technicians']);
+  } 
+
+ //updates the product
+  update(technicians) { 
+      console.log('   update techID:  ' + this.techId);
+      console.log('   update technicians:  ' + technicians);
+      this.techniciansService.update(this.id, technicians);
+      this.router.navigate(['/technicians']);
   }
 
   //deleting technicians in the firebase

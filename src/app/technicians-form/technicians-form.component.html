@@ -19,12 +19,13 @@
         </div>
 
          <div class="form-group">
-            <input #id="ngModel" [(ngModel)]="technicians.id" id="id" type="hidden" class="form-control">
+            <input #id="ngModel" [(ngModel)]="technicians.id" id="id" name="id" type="text" class="form-control">
         </div>
-        <div class="form-group">
+
+        <!-- <div class="form-group">
             <label for="online">Online</label>
             <input #online="ngModel" [(ngModel)]="technicians.online" name="online" id="online" type="checkbox" class="form-control">
-          </div>
+          </div> -->
 
 
         <div class="form-group">
@@ -43,25 +44,29 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="userType">Sys Role</label>
-          <input #userType="ngModel" [(ngModel)]="technicians.userType" name="userType" id="userType" type="text" class="form-control" required>
-          <div class="alert alert-danger" *ngIf="phone.touched && phone.invalid">
-            Sys Role is required.
-          </div>
-        </div>
+          <label for="userType">Sys role</label>
+          <select #userType="ngModel" [(ngModel)]="technicians.userType" name="userType" id="userType" class="form-control">
+            <option value="">--Choose a Sys Role--</option>
+              <option *ngFor="let s of sysRole$ | async" [value]="s.userType">
+               {{s.userType}}
+            </option>
+          </select>
+      </div>  
+
+
 
         <div class="form-group">
             <label for="profileUrl">Profile URL</label>
             <input #userType="ngModel" [(ngModel)]="technicians.profileUrl" name="profileUrl" id="profileUrl" type="url" class="form-control">
             <!-- <div class="alert alert-danger" *ngIf="profileUrl.touched && profileUrl.invalid">
-              Profile photo is required.
+              Profile photo link is required.
             </div> -->
           </div>
 
+          
 
-
-
-          <button class="btn btn-primary">Save</button>
+          <button type="button" (click)="create(f.value)" class="btn btn-primary">Add</button>
+          <button type="button" (click)="update(f.value)" class="btn btn-warning">Update</button>
           <button type="button" (click)="delete()" class="btn btn-danger">Delete</button>
       </form>
 </div>
@@ -77,6 +82,7 @@
               <p class="card-text">Phone: {{ technicians.phone }}</p>
               <p class="card-text">Sys Role: {{ technicians.userType }}</p>
               <p class="card-text">Online: {{ technicians.online }}</p>
+              <p class="card-text">ID: {{ technicians.id }}</p>
               <!-- <p class="card-text">Hobby: {{ technicians.hobby }}</p>
               <p class="card-text">Bio: {{ technicians.bio }}</p> -->
             </div>

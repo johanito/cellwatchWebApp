@@ -20,6 +20,7 @@
         <thead>
         <tr>
                 <th>Photo</th>
+                <th>UID</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Contract Date</th>
@@ -31,9 +32,10 @@
         <tbody>
             <tr *ngFor="let t of filteredTechnicians | paginate: { itemsPerPage: 10, currentPage: p }">  
             <td><img class="card-img-top profile-img" [src]="t.profileUrl" alt="Card image cap"></td>      
-                    <a [routerLink]="['/technicians-tasks', t.$key]">   
-                        <td title="Click here to see this technichian's tasks">{{ t.name }}</td>
-                    </a>
+            <a [routerLink]="['/technicians-tasks', t.$key]">   
+            <td title="Click here to see this technichian's tasks">{{ t.name }}</td>
+            </a>
+            <td>{{ t.id }}</td> 
             <td>{{ t.email }}</td>
             <td>{{ t.expirationDate }}</td>
             <td>{{ t.phone }}</td>
