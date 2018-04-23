@@ -1,6 +1,6 @@
 <!-- JB 25-03-18 Responsive and Collapsible NavBar -->
 
-<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top" role="navigation">
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top" role="navigation" *ngIf="isLoggedIn">
   <a class="navbar-brand" routerLink="dashboard" *ngIf="isLoggedIn"><img src="assets/cellwatch.jpg" class="logo" alt="logo"></a>
 
 <button class="navbar-toggler btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapsibleNavBar"  aria-expanded="true" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapsibleNavBar">

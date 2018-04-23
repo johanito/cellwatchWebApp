@@ -4,10 +4,12 @@ import * as firebase from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Technicians } from '../models/technicians';
 import { AppUser } from '../models/app-user';
+import { LoginStatus } from '../models/login-status';
 
 @Injectable()
 export class TechniciansService {
 techId;
+
 
   constructor(private db: AngularFireDatabase, private af: AngularFireAuth) { }
 
@@ -44,4 +46,14 @@ techId;
     return this.db.list('/sysRole/');
   }
 
+  //updating online status when logged in/out
+  updateLoginStatus(techId,online){
+  //  return this.db.object('/users/'+"3nT5DW21nMPDTT6r3AfNhcqgyPz2").update(LoginStatus);
+    return this.db.object('/users/'+this.techId).update(online);
+  }
+
+
+
+
 }
+ 
