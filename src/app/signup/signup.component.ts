@@ -20,7 +20,7 @@ export class SignupComponent implements OnInit {
 
   public form: FormGroup;
   id;
-  
+
 
   constructor (
     private formBuilder: FormBuilder,
@@ -30,6 +30,7 @@ export class SignupComponent implements OnInit {
     private router: Router,
     private af: AngularFireAuth
   ) {
+
     this.form = this.formBuilder.group({
       signup_email: ['', Validators.required],
       signup_password: ['', Validators.required],
@@ -47,8 +48,8 @@ export class SignupComponent implements OnInit {
     .subscribe(
       success => this.router.navigate(['/technicians/new']),
       error => alert(error));
-      
-      
+
+
   }
 
 
