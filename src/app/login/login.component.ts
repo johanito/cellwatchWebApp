@@ -35,10 +35,10 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private db: AngularFireDatabase,
     private route: ActivatedRoute
-  ) { 
+  ) {
 
     this.id = this.route.snapshot.paramMap.get('id');
-    if (this.id) this.techniciansService.getTechInfo(this.id).take(1).subscribe(t => this.technicians = t);
+
     this.form = this.formBuilder.group({
       login_email: ['', Validators.required],
       login_password:['', Validators.required]
@@ -49,26 +49,25 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  
-
   //login method
   login(){
-    
+
     const inputValue = this.form.value;
     //console.log(inputValue.login_email, inputValue.login_password);
 
     this.authService.login(inputValue.login_email, inputValue.login_password)
     .subscribe(
-      
+
       success => {
-        this.techniciansService.updateLoginStatus(this.id,{online:true});
+        this.techId=this.af.auth.currentUser.uid;
+        this.techniciansService.updateLoginStatus(this.techId,{online:true});
         this.router.navigate(['/dashboard']),
-        error => alert(error) 
+        error => alert(error)
       });
-  
-    
-    
+
+
+
   }
 
-  
+
 }
