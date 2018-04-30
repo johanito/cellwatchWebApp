@@ -102,7 +102,7 @@ import { SignupComponent } from './signup/signup.component';
         component: TaskDetailComponent,
         canActivate: [AuthGuardService]
       },
-      
+
       { path: 'types', 
         component: TypesComponent,
         canActivate: [AuthGuardService]

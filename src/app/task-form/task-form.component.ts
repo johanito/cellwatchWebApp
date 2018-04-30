@@ -20,6 +20,8 @@ export class TaskFormComponent implements OnInit {
   //list of tasks
   tasks={};
   taskId;
+  public currentDateTime = Math.round(new Date().getTime()).toString;
+  
 
   //dropdown technicians name
   eachUserID: string = '';
@@ -47,19 +49,19 @@ export class TaskFormComponent implements OnInit {
    
     //get task details and insert inside form&card
     let taskId = this.route.snapshot.paramMap.get('id');
-    if (taskId) this.taskService.getTaskInfo(taskId).take(1).subscribe( b => this.tasks = b);
+    if (taskId) this.taskService.getTaskInfo(taskId).take(1).subscribe( t => this.tasks = t);
 
   }
 
   //add task information from task-form to db
   add(tasks){
-    // console.log(tasks);
-    //console.log(this.techNames$);
-    this.taskService.create(tasks);
+    let currentDateTime=Math.round(new Date().getTime());
+    this.taskService.create(tasks,{taskDate:currentDateTime+''});
     this.router.navigate(['/task']);
   }
 
   ngOnInit() {
   }
+    
 
 }
