@@ -4,14 +4,16 @@ import * as firebase from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Technicians } from '../models/technicians';
 import { AppUser } from '../models/app-user';
+import { LoginStatus } from '../models/login-status';
 
 @Injectable()
 export class TechniciansService {
 techId;
 
+
   constructor(private db: AngularFireDatabase, private af: AngularFireAuth) { }
 
-  //create technicians with authentication 
+  //create technicians with authentication
   create(techId,technicians){
     return this.db.database.ref('/users').child(techId).set(technicians);
   }
@@ -19,7 +21,7 @@ techId;
   pushUid(techId){
     return this.db.database.ref('/users').child(techId).set("");
   }
-  
+
   //get/view all the data from database:table
   getAllInfo(){
     return this.db.list('/users/');
@@ -43,5 +45,14 @@ techId;
   getSysRole() {
     return this.db.list('/sysRole/');
   }
+
+  //updating online status when logged in/out
+  updateLoginStatus(techniciansId,online){
+  //  return this.db.object('/users/'+"3nT5DW21nMPDTT6r3AfNhcqgyPz2").update(LoginStatus);
+    return this.db.object('/users/'+techniciansId).update(online);
+  }
+
+
+
 
 }
