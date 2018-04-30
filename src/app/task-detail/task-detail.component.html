@@ -1,12 +1,104 @@
+<!--
 <button class="btn btn-warning" [routerLink]="['/task']">Back</button>
 <br>
 <br>
+--> 
 <div class="row">
-    <div class="col">
+
+<!--  MTK ADD START 30/04/2018 -->
+
+<div class="col-md-6">
+    <button class="btn btn-warning" [routerLink]="['/task']">Back</button>
+    <br>
+    <br>
+  <form #t="ngForm" (ngSubmit)="update(t.value)">
+    <div class="form-group">
+        <label for="taskType">Status</label>
+        <select #taskType="ngModel" [(ngModel)]="tasks.taskStatus" name="taskStatus" id="taskStatus" class="form-control">
+          <option value="">--Choose a Status for the Task--</option>
+            <option *ngFor="let e of taskStatus$ | async" [value]="e.status">
+             {{e.status}}
+          </option>
+        </select>
+    </div>     
+    <div class="form-group">
+        <label for="taskTechnicianName">Name</label>
+        <select #eachUserID="ngModel" [(ngModel)]="tasks.eachUserID" name="eachUserID" id="eachUserID"  class="form-control" (change)="selectedChangeHandler($event)">
+        <option value="">--Choose a Technician Name--</option>
+        <option *ngFor="let a of techNames$ | async" [ngValue]="a.$key">
+          {{ a.name }}
+        </option>
+    </select>
+    </div>
+ 
+
+    <!-- example -->
+    <div class="form-group">
+      <label for="taskType">Type</label>
+      <select #taskType="ngModel" [(ngModel)]="tasks.taskType" name="taskType" id="taskType" class="form-control">
+        <option value="">--Choose a Type--</option>
+        <option *ngFor="let d of taskTypes$ | async" [value]="d.type">
+          {{d.type}}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="taskName">TaskName</label>
+      <input #taskName="ngModel" [(ngModel)]="tasks.taskName" name="taskName" id="taskName" type="text" class="form-control" required>
+      <div class="alert alert-danger" *ngIf="taskName.touched && taskName.invalid">
+          Task Name is Required.
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="taskAddress">Address</label>
+      <input #taskAddress="ngModel" [(ngModel)]="tasks.taskAddress" name="taskAddress" id="taskAddress" type="text" class="form-control" required>
+      <div class="alert alert-danger" *ngIf="taskAddress.touched && taskAddress.invalid">
+          Address is Required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="taskSuburb">Suburb</label>
+      <input #taskSuburb="ngModel" [(ngModel)]="tasks.taskSuburb" name="taskSuburb" id="taskSuburb" type="text" class="form-control" required>
+      <div class="alert alert-danger" *ngIf="taskSuburb.touched && taskSuburb.invalid">
+          Suburb is Required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="taskStartDate">Start Date</label>
+      <input #taskStartDate="ngModel" [(ngModel)]="tasks.taskStartDate" name="taskStartDate" id="taskStartDate" type="date" class="form-control" required>
+      <div class="alert alert-danger" *ngIf="taskStartDate.touched && taskStartDate.invalid">
+          Start Date of Task is Required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="taskEndDate">End Date</label>
+      <input #taskEndDate="ngModel" [(ngModel)]="tasks.taskEndDate" name="taskEndDate" id="taskEndDate" type="date" class="form-control" required>
+      <div class="alert alert-danger" *ngIf="taskEndDate.touched && taskEndDate.invalid">
+          End Date of Task is Required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="taskDescription">Description</label>
+      <input #taskDescription="ngModel" [(ngModel)]="tasks.taskDescription" name="taskDescription" id="taskDescription" type="text" class="form-control">
+      <div class="alert alert-danger" *ngIf="taskDescription.touched && taskDescription.invalid">
+          Description of the task is Required.
+      </div>
+    </div>
+    <button class="btn btn-warning">Update Task</button>
+  </form>
+</div>
+
+<!-- MTK ADD END 30/04/2018 -->
+
+
+
+    <div class="col-md-6">
       <div class="card">
         <div class="card-body">
             <h4>Assign Tasks</h4>
             <!-- <p class="card-text">Technician Name: {{tasks.eachUserID}}</p> -->
+            <p class="card-text">Status: {{tasks.taskStatus}}</p>
             <p class="card-text">Tasks: {{tasks.taskName}}</p>
             <p class="card-text">Address: {{tasks.taskAddress}}</p>
             <p class="card-text">Comment: {{tasks.taskComment}}</p>

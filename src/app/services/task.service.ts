@@ -11,14 +11,21 @@ export class TaskService {
   constructor(private db: AngularFireDatabase,private route: ActivatedRoute) {  }
 
   //creating new tasks and adding to db
-  create(tasks){
-    // return this.db.list('/users' + this.uid + '/tasks').push(tasks);
-    return this.db.database.ref('/tasks/').push(tasks);
-    //console.log(tasks.taskTechniciansName);
-    // return this.db.list('/users/' + '/tasks').push(tasks);
-    // return this.db.database.ref('/users/' + a.id  ).child("tasks").push(tasks);
+  create(tasks,currentDateTime){
+    return this.db.database.ref('/tasks/').push(tasks).then((item)=>{
+      this.db.database.ref('/tasks/'+item.key).update(currentDateTime);
+    
+    });
+
   }
 
+
+  //MTK - 30/04/2018
+  update(tasksId,tasks) {
+    console.log("taskID"+tasksId);
+    console.log("tasks:" + tasks);
+    return this.db.object('/tasks/' +tasksId).update(tasks); 
+  }
   getAllTask(){
     return this.db.list('/tasks', {
       query: {
@@ -26,8 +33,6 @@ export class TaskService {
       }
     });
 
-    //return this.db.database.ref('/users/').child("").child('/tasks/');
-    //console.log();
   }
 
   getTaskById(userId){
